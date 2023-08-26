@@ -26,7 +26,7 @@ def login():
 
     # data = request.form
     # print(data)
-    return render_template("login.html")
+    return render_template("login.html", user=current_user)
 
 
 @auth.route('/logout')
@@ -59,7 +59,7 @@ def sign_up():
             # add user to database
             new_user = User(email=email,
                             first_name=first_name,
-                            password=generate_password_hash(password1, method='sha256')
+                            password=generate_password_hash(password1, method='scrypt')
                             )
             db.session.add(new_user)
             db.session.commit()
@@ -68,4 +68,4 @@ def sign_up():
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template("sign_up.html")
+    return render_template("sign_up.html", user=current_user)
