@@ -14,8 +14,21 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="static/zones.css">
 
     <title>{% block title %}Home{% endblock %}</title>
+    <script>
+
+      // Stop the form resubmission on page refresh
+
+      if ( window.history.replaceState ) {
+
+      window.history.replaceState( null, null, window.location.href );
+
+      }
+
+    </script>
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,6 +44,7 @@
         <div class="navbar-nav">
         {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="table" href="/zones">Zones</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
 
@@ -80,18 +94,10 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="static/script.js"
+    ></script>
+  <script src="static/zones.js"></script>
 
-{% block javascript %}
-    <script type="text/javascript">
-      function deleteNote(noteId) {
-  fetch("/delete-note", {
-    method: "POST",
-    body: JSON.stringify({ noteId: noteId }),
-  }).then((_res) => {
-    window.location.href = "/";
-  });
-  }
-</script>
-{% endblock %}
   </body>
 </html>
